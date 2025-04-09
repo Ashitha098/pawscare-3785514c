@@ -1,20 +1,23 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Search } from "lucide-react";
+import { Search, Filter, SlidersHorizontal } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import PetCard from "@/components/pet/PetCard";
 import { pets } from "@/data/pets";
+import { toast } from "sonner";
 
 const PetsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [petType, setPetType] = useState<string | undefined>(undefined);
   const [filteredPets, setFilteredPets] = useState(pets);
   const [showFilters, setShowFilters] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [animateResults, setAnimateResults] = useState(false);
 
   // Filter options
   const [filters, setFilters] = useState({
@@ -25,46 +28,77 @@ const PetsPage = () => {
     neutered: false,
   });
 
+  useEffect(() => {
+    // Animate pet cards when they first load
+    setAnimateResults(true);
+    const timer = setTimeout(() => setAnimateResults(false), 500);
+    
+    return () => clearTimeout(timer);
+  }, [filteredPets]);
+
+  // Handle search input as user types
+  useEffect(() => {
+    const delaySearch = setTimeout(() => {
+      if (searchTerm) {
+        handleSearch();
+      }
+    }, 500);
+    
+    return () => clearTimeout(delaySearch);
+  }, [searchTerm]);
+
   const handleSearch = () => {
-    let results = pets;
+    setIsLoading(true);
     
-    // Apply search term filter
-    if (searchTerm) {
-      results = results.filter(
-        (pet) =>
-          pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          pet.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    // Apply pet type filter
-    if (petType && petType !== "All") {
-      results = results.filter((pet) => pet.type === petType);
-    }
-    
-    // Apply checkbox filters
-    if (filters.goodWithChildren) {
-      results = results.filter((pet) => pet.goodWith.children);
-    }
-    
-    if (filters.goodWithDogs) {
-      results = results.filter((pet) => pet.goodWith.dogs);
-    }
-    
-    if (filters.goodWithCats) {
-      results = results.filter((pet) => pet.goodWith.cats);
-    }
-    
-    if (filters.vaccinated) {
-      results = results.filter((pet) => pet.vaccinated);
-    }
-    
-    if (filters.neutered) {
-      results = results.filter((pet) => pet.neutered);
-    }
-    
-    setFilteredPets(results);
+    // Simulate API call delay
+    setTimeout(() => {
+      let results = pets;
+      
+      // Apply search term filter
+      if (searchTerm) {
+        results = results.filter(
+          (pet) =>
+            pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            pet.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+      
+      // Apply pet type filter
+      if (petType && petType !== "All") {
+        results = results.filter((pet) => pet.type === petType);
+      }
+      
+      // Apply checkbox filters
+      if (filters.goodWithChildren) {
+        results = results.filter((pet) => pet.goodWith.children);
+      }
+      
+      if (filters.goodWithDogs) {
+        results = results.filter((pet) => pet.goodWith.dogs);
+      }
+      
+      if (filters.goodWithCats) {
+        results = results.filter((pet) => pet.goodWith.cats);
+      }
+      
+      if (filters.vaccinated) {
+        results = results.filter((pet) => pet.vaccinated);
+      }
+      
+      if (filters.neutered) {
+        results = results.filter((pet) => pet.neutered);
+      }
+      
+      setFilteredPets(results);
+      setIsLoading(false);
+      
+      if (results.length === 0) {
+        toast.info("No pets match your search criteria. Try adjusting your filters.");
+      } else if (results.length < pets.length) {
+        toast.success(`Found ${results.length} pets that match your search`);
+      }
+    }, 400);
   };
 
   const resetFilters = () => {
@@ -77,7 +111,13 @@ const PetsPage = () => {
       vaccinated: false,
       neutered: false,
     });
-    setFilteredPets(pets);
+    
+    setIsLoading(true);
+    setTimeout(() => {
+      setFilteredPets(pets);
+      setIsLoading(false);
+      toast.info("All filters have been reset");
+    }, 300);
   };
 
   const handleFilterChange = (filterName: keyof typeof filters) => {
@@ -110,7 +150,11 @@ const PetsPage = () => {
               </div>
             </div>
             <div className="col-span-1">
-              <Select value={petType} onValueChange={setPetType}>
+              <Select value={petType} onValueChange={(value) => {
+                setPetType(value);
+                // Auto-search when pet type changes
+                setTimeout(() => handleSearch(), 100);
+              }}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select pet type" />
                 </SelectTrigger>
@@ -125,17 +169,31 @@ const PetsPage = () => {
             </div>
             <div className="col-span-1 flex">
               <Button onClick={handleSearch} className="mr-2 flex-1 bg-pawsblue-500 hover:bg-pawsblue-600">
-                Search
+                {isLoading ? "Searching..." : "Search"}
               </Button>
-              <Button variant="outline" onClick={() => setShowFilters(!showFilters)} className="flex-shrink">
-                {showFilters ? "Hide Filters" : "More Filters"}
+              <Button 
+                variant="outline" 
+                onClick={() => setShowFilters(!showFilters)} 
+                className="flex-shrink group transition-colors"
+              >
+                {showFilters ? (
+                  <>
+                    <Filter className="mr-2 h-4 w-4 animate-pulse text-pawsblue-600" />
+                    Hide Filters
+                  </>
+                ) : (
+                  <>
+                    <SlidersHorizontal className="mr-2 h-4 w-4 group-hover:text-pawsblue-600" />
+                    More Filters
+                  </>
+                )}
               </Button>
             </div>
           </div>
 
           {/* Advanced Filters */}
           {showFilters && (
-            <div className="mt-6 pt-6 border-t">
+            <div className="mt-6 pt-6 border-t animate-fade-in">
               <h3 className="text-lg font-medium mb-4">Advanced Filters</h3>
               <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                 <div className="space-y-2">
@@ -199,10 +257,27 @@ const PetsPage = () => {
         </div>
 
         {/* Pets Grid */}
-        {filteredPets.length > 0 ? (
+        {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} />
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <div key={item} className="animate-pulse">
+                <div className="bg-gray-200 rounded-lg h-48 w-full mb-3"></div>
+                <div className="h-5 bg-gray-200 rounded w-1/2 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-1"></div>
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+              </div>
+            ))}
+          </div>
+        ) : filteredPets.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPets.map((pet, index) => (
+              <div 
+                key={pet.id} 
+                className={`${animateResults ? "animate-fade-in" : ""}`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <PetCard pet={pet} />
+              </div>
             ))}
           </div>
         ) : (

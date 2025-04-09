@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Pet } from "@/data/pets";
+import FavoritePetButton from "./FavoritePetButton";
 
 interface PetCardProps {
   pet: Pet;
@@ -34,6 +35,9 @@ const PetCard = ({ pet }: PetCardProps) => {
           <Badge className={`absolute top-3 right-3 ${getStatusBadgeColor(pet.adoptionStatus)}`}>
             {pet.adoptionStatus}
           </Badge>
+          <div className="absolute top-3 left-3">
+            <FavoritePetButton petId={pet.id} petName={pet.name} />
+          </div>
         </div>
         <CardContent className="p-4">
           <div className="flex justify-between items-start mb-1">
