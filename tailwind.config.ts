@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,33 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				pawsblue: {
+					50: '#eef7ff',
+					100: '#d9edff',
+					200: '#bce0ff',
+					300: '#8ecefd',
+					400: '#59b2f8',
+					500: '#3896f3',
+					600: '#2576e9',
+					700: '#1d61d7',
+					800: '#1e4eae',
+					900: '#1e4488',
+					950: '#172a53',
+				},
+				pawsorange: {
+					50: '#fff8ed',
+					100: '#ffefd6',
+					200: '#ffdcac',
+					300: '#ffc276',
+					400: '#ff9e3c',
+					500: '#fd8118',
+					600: '#ee6209',
+					700: '#c44a08',
+					800: '#9c3a0e',
+					900: '#7d310f',
+					950: '#431607',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +111,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'bounce-slow': {
+					'0%, 100%': { 
+						transform: 'translateY(-5%)',
+						animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+					},
+					'50%': {
+						transform: 'translateY(0)',
+						animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'bounce-slow': 'bounce-slow 3s infinite'
+			},
+			fontFamily: {
+				'cozy': ['Poppins', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
