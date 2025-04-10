@@ -20,7 +20,7 @@ export const accessories: Accessory[] = [
     price: 12.99,
     category: "Toys",
     petType: "Dog",
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1605897472359-5c87d3edd476?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: true,
     rating: 4.5
@@ -32,7 +32,7 @@ export const accessories: Accessory[] = [
     price: 29.99,
     category: "Beds",
     petType: "Cat",
-    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: true,
     rating: 4.8
@@ -44,7 +44,7 @@ export const accessories: Accessory[] = [
     price: 15.99,
     category: "Collars",
     petType: "Dog",
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1567773414704-8d7fc25e1757?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: false,
     rating: 4.2
@@ -56,7 +56,7 @@ export const accessories: Accessory[] = [
     price: 18.99,
     category: "Toys",
     petType: "Both",
-    image: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?auto=format&fit=crop&w=500&h=350",
     inStock: false,
     featured: false,
     rating: 4.7
@@ -68,7 +68,7 @@ export const accessories: Accessory[] = [
     price: 14.99,
     category: "Grooming",
     petType: "Both",
-    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1603867352128-3a40d0023039?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: true,
     rating: 4.4
@@ -80,7 +80,7 @@ export const accessories: Accessory[] = [
     price: 24.99,
     category: "Clothing",
     petType: "Dog",
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1576466655532-8f1a197de62a?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: false,
     rating: 4.1
@@ -92,7 +92,7 @@ export const accessories: Accessory[] = [
     price: 39.99,
     category: "Feeding",
     petType: "Both",
-    image: "https://images.unsplash.com/photo-1501286353178-1ec871c214838?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1585821569331-f071db2abd62?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: true,
     rating: 4.9
@@ -104,7 +104,7 @@ export const accessories: Accessory[] = [
     price: 34.99,
     category: "Toys",
     petType: "Cat",
-    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1587558337665-bbb41e5e50a4?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: false,
     rating: 4.3
@@ -116,7 +116,7 @@ export const accessories: Accessory[] = [
     price: 59.99,
     category: "Beds",
     petType: "Dog",
-    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=500&h=350",
+    image: "https://images.unsplash.com/photo-1560743641-3914f2c45636?auto=format&fit=crop&w=500&h=350",
     inStock: true,
     featured: true,
     rating: 4.6
