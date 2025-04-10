@@ -95,11 +95,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={18} className="text-pawsorange-400" />
-                <span className="text-gray-300">(123) 456-7890</span>
+                <span className="text-gray-300">+91 8105673860</span>
               </li>
               <li className="text-gray-300 mt-2">
                 123 Pet Avenue, <br />
-                Animal City, AC 12345
+                Bangalore - 560013
               </li>
             </ul>
           </div>
