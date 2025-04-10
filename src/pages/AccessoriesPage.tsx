@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -16,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { ShoppingCart, Search, Star } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import { accessories, Accessory } from "@/data/accessories";
-import { toast } from "sonner";
+import { useCart } from "@/context/CartContext";
 
 const AccessoriesPage = () => {
   const [filteredAccessories, setFilteredAccessories] = useState(accessories);
@@ -25,6 +24,7 @@ const AccessoriesPage = () => {
   const [selectedPetType, setSelectedPetType] = useState<string | undefined>(undefined);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [showFilters, setShowFilters] = useState(false);
+  const { addToCart } = useCart();
   
   // Filter checkboxes
   const [filters, setFilters] = useState({
@@ -95,7 +95,7 @@ const AccessoriesPage = () => {
   };
 
   const handleAddToCart = (accessory: Accessory) => {
-    toast.success(`${accessory.name} added to cart!`);
+    addToCart(accessory);
   };
 
   const renderRating = (rating: number) => {

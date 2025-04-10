@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, PawPrint, User } from "lucide-react";
+import { Menu, X, PawPrint } from "lucide-react";
+import CartButton from "@/components/cart/CartButton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,8 +50,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons and Cart */}
           <div className="hidden md:flex items-center space-x-4">
+            <CartButton />
             <Link to="/login">
               <Button variant="outline" size="sm" className="rounded-full">
                 Login
@@ -64,7 +66,8 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-2">
+            <CartButton />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-pawsblue-500 hover:bg-gray-100 focus:outline-none"
