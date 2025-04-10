@@ -2,7 +2,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CurrencyConverter from "../utils/CurrencyConverter";
 import { toast } from "sonner";
