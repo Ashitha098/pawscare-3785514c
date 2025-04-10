@@ -14,6 +14,7 @@ import AccessoriesPage from "./pages/AccessoriesPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AdminPage from "./pages/AdminPage";
+import AboutUsPage from "./pages/AboutUsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/pets/:id" element={<PetDetailsPage />} />
           <Route path="/grooming" element={<GroomingPage />} />
           <Route path="/accessories" element={<AccessoriesPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminPage />} />
