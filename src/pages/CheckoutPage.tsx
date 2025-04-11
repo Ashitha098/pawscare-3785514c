@@ -7,17 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCart, CreditCard, CheckCheck } from "lucide-react";
+import { ShoppingCart, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle,
-  DialogDescription,
-  DialogFooter 
-} from "@/components/ui/dialog";
 import { toast } from "sonner";
+import OrderSuccessDialog from "@/components/checkout/OrderSuccessDialog";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const CheckoutPage = () => {
   const { items, subtotal, clearCart } = useCart();
@@ -39,6 +33,7 @@ const CheckoutPage = () => {
   });
   
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [orderNumber, setOrderNumber] = useState("");
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -66,11 +61,15 @@ const CheckoutPage = () => {
       }
     }
     
+    // Generate random order number
+    const generatedOrderNumber = `PW${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
+    setOrderNumber(generatedOrderNumber);
+    
     // Show success dialog
     setShowSuccessDialog(true);
   };
   
-  const completeOrder = () => {
+  const handleOrderComplete = () => {
     clearCart();
     setShowSuccessDialog(false);
     navigate("/");
@@ -323,6 +322,13 @@ const CheckoutPage = () => {
                 )}
               </div>
               
+              <Alert variant="default" className="mb-6 border-yellow-200 bg-yellow-50">
+                <AlertTitle>Important Note</AlertTitle>
+                <AlertDescription>
+                  This is a demo store. No real payments will be processed and no actual products will be shipped.
+                </AlertDescription>
+              </Alert>
+              
               <Button 
                 type="submit" 
                 className="w-full py-6 text-lg bg-pawsblue-500 hover:bg-pawsblue-600"
@@ -333,33 +339,20 @@ const CheckoutPage = () => {
           </div>
         </div>
         
-        {/* Success Dialog */}
-        <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="flex items-center text-xl">
-                <CheckCheck className="mr-2 text-green-500" />
-                Order Confirmation
-              </DialogTitle>
-              <DialogDescription>
-                Thank you for your order! We've received your payment and will process your order shortly.
-              </DialogDescription>
-            </DialogHeader>
-            
-            <div className="py-4">
-              <p className="mb-2"><strong>Order Number:</strong> #PW{Math.floor(Math.random() * 10000)}</p>
-              <p className="mb-2"><strong>Shipping Address:</strong> {formData.address}, {formData.city}, {formData.state} {formData.zip}</p>
-              <p className="mb-2"><strong>Total Amount:</strong> ${(subtotal + 5).toFixed(2)}</p>
-              <p className="mt-4 text-sm">A confirmation email has been sent to {formData.email}</p>
-            </div>
-            
-            <DialogFooter>
-              <Button onClick={completeOrder} className="bg-pawsblue-500 hover:bg-pawsblue-600">
-                Continue Shopping
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        {/* Order Success Dialog */}
+        <OrderSuccessDialog 
+          open={showSuccessDialog} 
+          onOpenChange={setShowSuccessDialog}
+          orderDetails={{
+            orderNumber: orderNumber,
+            email: formData.email,
+            address: formData.address,
+            city: formData.city,
+            state: formData.state,
+            zip: formData.zip,
+            total: subtotal + 5
+          }}
+        />
       </div>
     </MainLayout>
   );
