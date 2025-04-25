@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, PawPrint } from "lucide-react";
+import { Menu, X, PawPrint, UserRound } from "lucide-react";
 import CartButton from "@/components/cart/CartButton";
 
 const Navbar = () => {
@@ -50,7 +50,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons and Cart */}
+          {/* Auth Buttons, Cart and Admin */}
           <div className="hidden md:flex items-center space-x-4">
             <CartButton />
             <Link to="/login">
@@ -61,6 +61,16 @@ const Navbar = () => {
             <Link to="/register">
               <Button variant="default" size="sm" className="rounded-full bg-pawsblue-500 hover:bg-pawsblue-600">
                 Register
+              </Button>
+            </Link>
+            <Link to="/admin">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="rounded-full flex items-center gap-2"
+              >
+                <UserRound size={18} />
+                Admin
               </Button>
             </Link>
           </div>
@@ -106,6 +116,12 @@ const Navbar = () => {
                 <Link to="/register" onClick={() => setIsOpen(false)}>
                   <Button variant="default" className="w-full rounded-full bg-pawsblue-500 hover:bg-pawsblue-600">
                     Register
+                  </Button>
+                </Link>
+                <Link to="/admin" onClick={() => setIsOpen(false)}>
+                  <Button variant="ghost" className="w-full rounded-full flex items-center justify-center gap-2">
+                    <UserRound size={18} />
+                    Admin
                   </Button>
                 </Link>
               </div>
