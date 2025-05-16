@@ -1,4 +1,3 @@
-
 export interface Pet {
   id: number;
   name: string;
@@ -29,7 +28,7 @@ export const pets: Pet[] = [
     gender: "Male",
     size: "Large",
     description: "Max is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks. He's great with children and other pets, making him a perfect addition to an active family.",
-    image: "https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?auto=format&fit=crop&w=500&h=350",
+    image: "/lovable-uploads/f4727d12-2f92-41d3-81ed-cb22ec9a0a6b.png",
     adoptionStatus: "Available",
     vaccinated: true,
     neutered: true,
